@@ -21,7 +21,7 @@ func ReadConfig() *Config {
 	var config *Config
 	var defaultConfig = &Config{
 		MainNetworkRpcUrl:  "wss://nodewebsoket.ic-plaza.org/ws",
-		MainNetworkChainID: 9000,
+		MainNetworkChainID: 142857,
 		TestNetworkRpcUrl:  "https://rpctest.ic-plaza.org/",
 		TestNetworkChainID: 10000,
 		GasLimit:           500000,
