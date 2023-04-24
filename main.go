@@ -54,6 +54,7 @@ func ListenPickwinner() {
 	signer, hashCasinoInstance, _ := utils.GetHashCasinoInstance(big.NewInt(0))
 	if signer == nil || hashCasinoInstance == nil {
 		logger.Error("Signer or hash casino instance is nil")
+		ListenPickwinner()
 		return
 	}
 	if second <= 30 {
@@ -87,11 +88,13 @@ func Pickwinner() {
 	signer, hashCasinoInstance, client := utils.GetHashCasinoInstance(big.NewInt(0))
 	if signer == nil || hashCasinoInstance == nil {
 		logger.Info("Signer or hash casino instance is nil")
+		Pickwinner()
 		return
 	}
 	amount, err := hashCasinoInstance.GetPoolAmount(&bind.CallOpts{})
 	if err != nil {
 		logger.Error("Pick winners error, %v", err.Error())
+		Pickwinner()
 		return
 	}
 	if amount.Int64() <= 0 {
@@ -102,6 +105,7 @@ func Pickwinner() {
 	tx, err := hashCasinoInstance.PickWinners(signer)
 	if err != nil {
 		logger.Error("Pick winners error, %v", err.Error())
+		Pickwinner()
 		return
 	}
 	logger.Success("Successful lottery, Liquidation Amount: %v ICT, TxID: %v", etherAmount, tx.Hash())
