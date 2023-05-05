@@ -23,7 +23,7 @@ func GetEthClient() *ethclient.Client {
 	client, err := ethclient.Dial(rpcUrl)
 	if err != nil {
 		logger.Error("Get ethereum rpc client error, %v", err.Error())
-		return nil
+		return GetEthClient()
 	}
 	return client
 }
@@ -34,12 +34,12 @@ func GetHashCasinoInstance(value *big.Int) (*bind.TransactOpts, *abi.Structname,
 	signer, client := createSigner(value)
 	if signer == nil || client == nil {
 		logger.Error("Signer or client is nil")
-		return nil, nil, nil
+		return GetHashCasinoInstance(value)
 	}
 	instance, err := abi.NewStructname(common.HexToAddress(config.ContractAddress), client)
 	if err != nil {
 		logger.Error("Abi new instance failed, %v", err.Error())
-		return nil, nil, nil
+		return GetHashCasinoInstance(value)
 	}
 	return signer, instance, client
 }
@@ -54,34 +54,34 @@ func createSigner(value *big.Int) (*bind.TransactOpts, *ethclient.Client) {
 	privateKey, err := crypto.HexToECDSA(config.AccountPrivateKey)
 	if err != nil {
 		logger.Error("Crypto hex to ecdsa error, %v", err.Error())
-		return nil, nil
+		return createSigner(value)
 	}
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
 		logger.Error("Error casting public key to ECDSA")
-		return nil, nil
+		return createSigner(value)
 	}
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
 	client := GetEthClient()
 	if client == nil {
 		logger.Error("Get ethereum rpc client error, client is nil")
-		return nil, nil
+		return createSigner(value)
 	}
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
 		logger.Error("Get nonce error, %v", err.Error())
-		return nil, nil
+		return createSigner(value)
 	}
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
 		logger.Error("Get ethereum rpc client error, client is nil")
-		return nil, nil
+		return createSigner(value)
 	}
 	signer, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(chainID))
 	if err != nil {
 		logger.Error("Create signer error, %v", err.Error())
-		return nil, nil
+		return createSigner(value)
 	}
 	signer.Nonce = big.NewInt(int64(nonce))
 	signer.Value = value
