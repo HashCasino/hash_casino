@@ -12,16 +12,16 @@ import (
 )
 
 var (
-	TimeDefine        = 0
-	NotifyChan        = make(chan bool)
-	ErrorLogSenders   []common.Address
-	ErrorLogChan      = make(chan *abi.StructnameErrorLog)
-	WinnerLogSenders  []common.Address
-	WinnerLogChan     = make(chan *abi.StructnameWinnerLog)
-	LoserLogSenders   []common.Address
-	LoserLogChan      = make(chan *abi.StructnameLoserLog)
-	ReceiveLogSenders []common.Address
-	ReceiveLogChan    = make(chan *abi.StructnameReceiveLog)
+	timeDefine        = 0
+	notifyChan        = make(chan bool)
+	errorLogSenders   []common.Address
+	errorLogChan      = make(chan *abi.StructnameErrorLog)
+	winnerLogSenders  []common.Address
+	winnerLogChan     = make(chan *abi.StructnameWinnerLog)
+	loserLogSenders   []common.Address
+	loserLogChan      = make(chan *abi.StructnameLoserLog)
+	receiveLogSenders []common.Address
+	receiveLogChan    = make(chan *abi.StructnameReceiveLog)
 )
 
 func main() {
@@ -31,16 +31,16 @@ func main() {
 	go ListenDappEvents()
 	for {
 		select {
-		case <-NotifyChan:
+		case <-notifyChan:
 			go Pickwinner()
 			go ListenPickwinner()
-		case errorLog := <-ErrorLogChan:
+		case errorLog := <-errorLogChan:
 			logger.Info("Received contract error event, Message: %v, Sender: %v", errorLog.Message, errorLog.Sender)
-		case winnerLog := <-WinnerLogChan:
+		case winnerLog := <-winnerLogChan:
 			logger.Success("Received contract winner event, GameType: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %v, Sender: %v", winnerLog.GameType, winnerLog.BetType, winnerLog.Position, utils.ToEther(winnerLog.Amount).String(), winnerLog.Multiple, winnerLog.Sender)
-		case loserLog := <-LoserLogChan:
+		case loserLog := <-loserLogChan:
 			logger.Warn("Received contract loser event, GameType: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %v, Sender: %v", loserLog.GameType, loserLog.BetType, loserLog.Position, utils.ToEther(loserLog.Amount).String(), loserLog.Multiple, loserLog.Sender)
-		case receiveLog := <-ReceiveLogChan:
+		case receiveLog := <-receiveLogChan:
 			logger.Success("Received contract receive event, Sender: %v, Amount: %v ICT", receiveLog.Sender, utils.ToEther(receiveLog.Value).String())
 		}
 	}
@@ -58,25 +58,25 @@ func ListenPickwinner() {
 		return
 	}
 	if second <= 30 {
-		TimeDefine = 29 - second
-		timer := time.NewTimer(time.Second * time.Duration(TimeDefine))
+		timeDefine = 29 - second
+		timer := time.NewTimer(time.Second * time.Duration(timeDefine))
 	End:
 		for {
 			select {
 			case <-timer.C:
-				NotifyChan <- true
+				notifyChan <- true
 				break End
 			}
 		}
 		return
 	}
 	if second >= 30 {
-		TimeDefine = 60 - second
-		timer := time.NewTimer(time.Second * time.Duration(TimeDefine))
+		timeDefine = 60 - second
+		timer := time.NewTimer(time.Second * time.Duration(timeDefine))
 		for {
 			select {
 			case <-timer.C:
-				NotifyChan <- true
+				notifyChan <- true
 				break
 			}
 		}
@@ -142,28 +142,28 @@ func ListenDappEvents() {
 	_, err := hashCasinoInstance.WatchWinnerLog(&bind.WatchOpts{
 		Start:   nil,
 		Context: context.Background(),
-	}, WinnerLogChan, WinnerLogSenders)
+	}, winnerLogChan, winnerLogSenders)
 	if err != nil {
 		logger.Error("Watch winner log failed, %v", err.Error())
 	}
 	_, err = hashCasinoInstance.WatchLoserLog(&bind.WatchOpts{
 		Start:   nil,
 		Context: context.Background(),
-	}, LoserLogChan, LoserLogSenders)
+	}, loserLogChan, loserLogSenders)
 	if err != nil {
 		logger.Error("Watch loser log failed, %v", err.Error())
 	}
 	_, err = hashCasinoInstance.WatchErrorLog(&bind.WatchOpts{
 		Start:   nil,
 		Context: context.Background(),
-	}, ErrorLogChan, ErrorLogSenders)
+	}, errorLogChan, errorLogSenders)
 	if err != nil {
 		logger.Error("Watch error log failed, %v", err.Error())
 	}
 	_, err = hashCasinoInstance.WatchReceiveLog(&bind.WatchOpts{
 		Start:   nil,
 		Context: context.Background(),
-	}, ReceiveLogChan, ReceiveLogSenders)
+	}, receiveLogChan, receiveLogSenders)
 	if err != nil {
 		logger.Error("Watch receive log failed, %v", err.Error())
 		return
