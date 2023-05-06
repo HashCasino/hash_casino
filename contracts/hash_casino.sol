@@ -23,7 +23,8 @@ contract HashCasino {
         address owner;
     }
 
-    uint private prevNum;
+    uint private prevDiceNum;
+    uint private prevRouletteNum;
     address private owner;
     address[] private players;
     BetInfo[] private betInfos;
@@ -93,19 +94,22 @@ contract HashCasino {
             emit ErrorLog(msg.sender, "Pick winners failed, betInfos length is zero");
             revert BasicError();
         }
+        // Pick dice winners
+        uint randNum = uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, block.number, block.coinbase, players)));
+        uint diceNum = (randNum % 6) + 1;
+        uint position = getPosition(diceNum);
+        uint color = getColor(diceNum);
+        // Pick roulette winners
+        uint rouletteIndex = (randNum % rouletteNums.length) + 1;
+        uint rouletteNum = rouletteNums[rouletteIndex];
+        uint rouletteColor = getRouletteColor(rouletteNum);
+        prevDiceNum = diceNum;
+        prevRouletteNum = rouletteNum;
+        // Payments
         for (uint i = 0; i < betInfos.length; i++) {
             BetInfo memory betInfo = betInfos[i];
             // Dice
             if (betInfo.gameType == 0) {
-                uint randNum = uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, block.number, block.coinbase, players)));
-                uint diceNum = (randNum % 6) + 1;
-                uint position = getPosition(diceNum);
-                uint color = getColor(diceNum);
-                prevNum = diceNum;
-                if (position == 2) {
-                    emit ErrorLog(msg.sender, "Get position failed, position < 0 or position > 6");
-                    revert BasicError();
-                }
                 // Size (2x)
                 if (betInfo.betType == 0) {
                     if (betInfo.position == position) {
@@ -148,14 +152,6 @@ contract HashCasino {
             }
             // Roulette
             if (betInfo.gameType == 1) {
-                uint randNum = uint(keccak256(abi.encodePacked(block.prevrandao, block.timestamp, block.number, block.coinbase, rouletteNums)));
-                uint rouletteIndex = (randNum % rouletteNums.length) + 1;
-                uint rouletteNum = rouletteNums[rouletteIndex];
-                uint rouletteColor = getRouletteColor(rouletteNum);
-                if (rouletteColor == 3) {
-                    emit ErrorLog(betInfo.owner, "Get roulette color failed, unknown type");
-                    revert BasicError();
-                }
                 // Color (2x)
                 if (betInfo.betType == 0) {
                     uint multiple = 2;
@@ -217,7 +213,11 @@ contract HashCasino {
     }
 
     function getPrevNum() public view returns (uint) {
-        return prevNum;
+        return prevDiceNum;
+    }
+
+    function getPrevRouletteNum() public view returns (uint) {
+        return prevRouletteNum;
     }
     
     function getBetStatus() public view returns (bool) {
