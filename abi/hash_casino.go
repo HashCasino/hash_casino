@@ -31,17 +31,16 @@ var (
 
 // HashCasinoBetInfo is an auto generated low-level Go binding around an user-defined struct.
 type HashCasinoBetInfo struct {
-	GameType    *big.Int
-	BetType     *big.Int
-	Position    *big.Int
-	Amount      *big.Int
-	EtherAmount *big.Int
-	Owner       common.Address
+	GameType *big.Int
+	BetType  *big.Int
+	Position *big.Int
+	Amount   *big.Int
+	Owner    common.Address
 }
 
 // StructnameMetaData contains all meta data concerning the Structname contract.
 var StructnameMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"BasicError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"OwnerCheckError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WithdrawError\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"name\":\"ErrorLog\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"multiple\",\"type\":\"uint256\"}],\"name\":\"LoserLog\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"etherAmount\",\"type\":\"uint256\"}],\"name\":\"participate\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pickWinners\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ReceiveLog\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nums\",\"type\":\"uint256[]\"}],\"name\":\"setRouletteNums\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"multiple\",\"type\":\"uint256\"}],\"name\":\"WinnerLog\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"},{\"inputs\":[],\"name\":\"getBetInfos\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"etherAmount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"internalType\":\"structHashCasino.BetInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBetStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPoolAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPrevNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRouletteNums\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"BasicError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OwnerCheckError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"WithdrawError\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"name\":\"ErrorLog\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"multiple\",\"type\":\"uint256\"}],\"name\":\"LoserLog\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ReceiveLog\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"multiple\",\"type\":\"uint256\"}],\"name\":\"WinnerLog\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBetInfos\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"internalType\":\"structHashCasino.BetInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBetStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPoolAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPrevNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRouletteNums\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gameType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"betType\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"participate\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pickWinners\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"nums\",\"type\":\"uint256[]\"}],\"name\":\"setRouletteNums\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]",
 }
 
 // StructnameABI is the input ABI used to generate the binding from.
@@ -192,7 +191,7 @@ func (_Structname *StructnameTransactorRaw) Transact(opts *bind.TransactOpts, me
 
 // GetBetInfos is a free data retrieval call binding the contract method 0x54cc5a0d.
 //
-// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,uint256,address)[])
+// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,address)[])
 func (_Structname *StructnameCaller) GetBetInfos(opts *bind.CallOpts) ([]HashCasinoBetInfo, error) {
 	var out []interface{}
 	err := _Structname.contract.Call(opts, &out, "getBetInfos")
@@ -209,14 +208,14 @@ func (_Structname *StructnameCaller) GetBetInfos(opts *bind.CallOpts) ([]HashCas
 
 // GetBetInfos is a free data retrieval call binding the contract method 0x54cc5a0d.
 //
-// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,uint256,address)[])
+// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,address)[])
 func (_Structname *StructnameSession) GetBetInfos() ([]HashCasinoBetInfo, error) {
 	return _Structname.Contract.GetBetInfos(&_Structname.CallOpts)
 }
 
 // GetBetInfos is a free data retrieval call binding the contract method 0x54cc5a0d.
 //
-// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,uint256,address)[])
+// Solidity: function getBetInfos() view returns((uint256,uint256,uint256,uint256,address)[])
 func (_Structname *StructnameCallerSession) GetBetInfos() ([]HashCasinoBetInfo, error) {
 	return _Structname.Contract.GetBetInfos(&_Structname.CallOpts)
 }
@@ -366,25 +365,25 @@ func (_Structname *StructnameTransactorSession) Deposit() (*types.Transaction, e
 	return _Structname.Contract.Deposit(&_Structname.TransactOpts)
 }
 
-// Participate is a paid mutator transaction binding the contract method 0xffefded5.
+// Participate is a paid mutator transaction binding the contract method 0xaf4e476f.
 //
-// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount, uint256 etherAmount) payable returns()
-func (_Structname *StructnameTransactor) Participate(opts *bind.TransactOpts, gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int, etherAmount *big.Int) (*types.Transaction, error) {
-	return _Structname.contract.Transact(opts, "participate", gameType, betType, position, amount, etherAmount)
+// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount) payable returns()
+func (_Structname *StructnameTransactor) Participate(opts *bind.TransactOpts, gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int) (*types.Transaction, error) {
+	return _Structname.contract.Transact(opts, "participate", gameType, betType, position, amount)
 }
 
-// Participate is a paid mutator transaction binding the contract method 0xffefded5.
+// Participate is a paid mutator transaction binding the contract method 0xaf4e476f.
 //
-// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount, uint256 etherAmount) payable returns()
-func (_Structname *StructnameSession) Participate(gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int, etherAmount *big.Int) (*types.Transaction, error) {
-	return _Structname.Contract.Participate(&_Structname.TransactOpts, gameType, betType, position, amount, etherAmount)
+// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount) payable returns()
+func (_Structname *StructnameSession) Participate(gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int) (*types.Transaction, error) {
+	return _Structname.Contract.Participate(&_Structname.TransactOpts, gameType, betType, position, amount)
 }
 
-// Participate is a paid mutator transaction binding the contract method 0xffefded5.
+// Participate is a paid mutator transaction binding the contract method 0xaf4e476f.
 //
-// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount, uint256 etherAmount) payable returns()
-func (_Structname *StructnameTransactorSession) Participate(gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int, etherAmount *big.Int) (*types.Transaction, error) {
-	return _Structname.Contract.Participate(&_Structname.TransactOpts, gameType, betType, position, amount, etherAmount)
+// Solidity: function participate(uint256 gameType, uint256 betType, uint256 position, uint256 amount) payable returns()
+func (_Structname *StructnameTransactorSession) Participate(gameType *big.Int, betType *big.Int, position *big.Int, amount *big.Int) (*types.Transaction, error) {
+	return _Structname.Contract.Participate(&_Structname.TransactOpts, gameType, betType, position, amount)
 }
 
 // PickWinners is a paid mutator transaction binding the contract method 0xdc07820f.
