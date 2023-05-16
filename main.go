@@ -35,7 +35,9 @@ func init() {
 		return
 	}
 	// Log config
-	log.SetFormatter(&log.JSONFormatter{})
+	log.SetFormatter(&log.TextFormatter{
+		FullTimestamp: true,
+	})
 	log.SetOutput(io.MultiWriter(writer, os.Stdout))
 	log.SetReportCaller(true)
 	log.SetLevel(log.TraceLevel)
