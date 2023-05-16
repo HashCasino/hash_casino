@@ -1,8 +1,8 @@
 package model
 
 import (
-	"HashCasino/logger"
 	"encoding/json"
+	log "github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -45,12 +45,12 @@ func ReadConfig() *Config {
 func (c *Config) SaveConfig() {
 	cJson, err := json.Marshal(&c)
 	if err != nil {
-		logger.Error("Save config failed, %v", err.Error())
+		log.Errorf("Save config failed, %v", err.Error())
 		return
 	}
 	err = os.WriteFile("./config.json", cJson, os.ModePerm)
 	if err != nil {
-		logger.Error("Save config failed, %v", err.Error())
+		log.Errorf("Save config failed, %v", err.Error())
 		return
 	}
 }
