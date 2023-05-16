@@ -54,9 +54,9 @@ func main() {
 		case errorLog := <-errorLogChan:
 			log.Errorf("Received contract error event, Message: %v, Sender: %v", errorLog.Message, errorLog.Sender)
 		case winnerLog := <-winnerLogChan:
-			log.Infof("Received contract winner event, GameType: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %v, Sender: %v", winnerLog.GameType, winnerLog.BetType, winnerLog.Position, utils.ToEther(winnerLog.Amount).String(), winnerLog.Multiple, winnerLog.Sender)
+			log.Infof("Received contract winner event, GameName: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %vx, Sender: %v, Winner Amount: %v ICT", utils.GetNameByGameType(winnerLog.GameType.Int64()), utils.GetNameByBetType(winnerLog.GameType.Int64(), winnerLog.BetType.Int64()), winnerLog.Position, utils.ToEther(winnerLog.Amount).String(), winnerLog.Multiple, winnerLog.Sender, utils.ToEther(big.NewInt(winnerLog.Amount.Int64()*winnerLog.Multiple.Int64())).String())
 		case loserLog := <-loserLogChan:
-			log.Warnf("Received contract loser event, GameType: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %v, Sender: %v", loserLog.GameType, loserLog.BetType, loserLog.Position, utils.ToEther(loserLog.Amount).String(), loserLog.Multiple, loserLog.Sender)
+			log.Warnf("Received contract loser event, GameName: %v, BetType: %v, Position: %v, Amount: %v ICT, Multiple: %vx, Sender: %v", utils.GetNameByGameType(loserLog.GameType.Int64()), utils.GetNameByBetType(loserLog.GameType.Int64(), loserLog.BetType.Int64()), loserLog.Position, utils.ToEther(loserLog.Amount).String(), loserLog.Multiple, loserLog.Sender)
 		case receiveLog := <-receiveLogChan:
 			log.Infof("Received contract receive event, Sender: %v, Amount: %v ICT", receiveLog.Sender, utils.ToEther(receiveLog.Value).String())
 		}

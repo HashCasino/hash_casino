@@ -80,3 +80,57 @@ func ToEther(wei *big.Int) *big.Float {
 	ether := new(big.Float).Quo(balance, big.NewFloat(math.Pow10(18)))
 	return ether
 }
+
+// GetNameByGameType Get game name by game type
+func GetNameByGameType(gameType int64) string {
+	var gameName string
+	switch gameType {
+	case 0:
+		gameName = "Dice"
+		break
+	case 1:
+		gameName = "Big Wheel"
+		break
+	default:
+		gameName = "Unkonw"
+		break
+	}
+	return gameName
+}
+
+// GetNameByBetType Get game bet type by game type and bet type
+func GetNameByBetType(gameType, betType int64) string {
+	var betName string
+	// Dice
+	if gameType == 0 {
+		switch betType {
+		case 0:
+			betName = "Size (2x)"
+			break
+		case 1:
+			betName = "Red or Blue (2x)"
+			break
+		case 2:
+			betName = "Number (6x)"
+			break
+		default:
+			betName = "Unkonw (0x)"
+			break
+		}
+	}
+	// Big Wheel
+	if gameType == 1 {
+		switch betType {
+		case 0:
+			betName = "Red or Blue (2x) / Green (6x)"
+			break
+		case 1:
+			betName = "Number (10x)"
+			break
+		default:
+			betName = "Unkonw (0x)"
+			break
+		}
+	}
+	return betName
+}
