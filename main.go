@@ -71,7 +71,7 @@ func ListenPickwinner() {
 	timestamp := utils.GetTaobaoTime()
 	taobaoTime := time.Unix(timestamp, 0)
 	second := taobaoTime.Second()
-	signer, hashCasinoInstance, _ := utils.GetHashCasinoInstance(big.NewInt(0))
+	signer, hashCasinoInstance, client := utils.GetHashCasinoInstance(big.NewInt(0))
 	if signer == nil || hashCasinoInstance == nil {
 		log.Error("Signer or hash casino instance is nil")
 		ListenPickwinner()
@@ -80,26 +80,29 @@ func ListenPickwinner() {
 	if second <= 30 {
 		timeDefine = 30 - second
 		timer := time.NewTimer(time.Second * time.Duration(timeDefine))
-	End:
+	PrevEnd:
 		for {
 			select {
 			case <-timer.C:
 				notifyChan <- true
-				break End
+				break PrevEnd
 			}
 		}
+		client.Close()
 		return
 	}
 	if second >= 30 {
 		timeDefine = 60 - second
 		timer := time.NewTimer(time.Second * time.Duration(timeDefine))
+	NextEnd:
 		for {
 			select {
 			case <-timer.C:
 				notifyChan <- true
-				break
+				break NextEnd
 			}
 		}
+		client.Close()
 	}
 }
 
@@ -154,7 +157,7 @@ func SettingRouletteNumbers(rouletteNums []int) {
 
 // ListenDappEvents Listen dapp events notify
 func ListenDappEvents() {
-	signer, hashCasinoInstance, _ := utils.GetHashCasinoInstance(big.NewInt(0))
+	signer, hashCasinoInstance, client := utils.GetHashCasinoInstance(big.NewInt(0))
 	if signer == nil || hashCasinoInstance == nil {
 		log.Info("Signer or hash casino instance is nil")
 		return
@@ -165,6 +168,7 @@ func ListenDappEvents() {
 	}, winnerLogChan, winnerLogSenders)
 	if err != nil {
 		log.Errorf("Watch winner log failed, %v", err.Error())
+		client.Close()
 	}
 	_, err = hashCasinoInstance.WatchLoserLog(&bind.WatchOpts{
 		Start:   nil,
@@ -172,6 +176,7 @@ func ListenDappEvents() {
 	}, loserLogChan, loserLogSenders)
 	if err != nil {
 		log.Errorf("Watch loser log failed, %v", err.Error())
+		client.Close()
 	}
 	_, err = hashCasinoInstance.WatchErrorLog(&bind.WatchOpts{
 		Start:   nil,
@@ -179,6 +184,7 @@ func ListenDappEvents() {
 	}, errorLogChan, errorLogSenders)
 	if err != nil {
 		log.Errorf("Watch error log failed, %v", err.Error())
+		client.Close()
 	}
 	_, err = hashCasinoInstance.WatchReceiveLog(&bind.WatchOpts{
 		Start:   nil,
@@ -186,6 +192,7 @@ func ListenDappEvents() {
 	}, receiveLogChan, receiveLogSenders)
 	if err != nil {
 		log.Errorf("Watch receive log failed, %v", err.Error())
+		client.Close()
 		return
 	}
 }

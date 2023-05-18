@@ -11,6 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	log "github.com/sirupsen/logrus"
 	"math/big"
+	"time"
 )
 
 // GetEthClient Get ethereum rpc client
@@ -23,6 +24,7 @@ func GetEthClient() *ethclient.Client {
 	client, err := ethclient.Dial(rpcUrl)
 	if err != nil {
 		log.Errorf("Get ethereum rpc client error, %v", err.Error())
+		time.Sleep(time.Second * 3)
 		return GetEthClient()
 	}
 	return client
