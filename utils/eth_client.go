@@ -57,38 +57,32 @@ func createSigner(value *big.Int) (*bind.TransactOpts, *ethclient.Client) {
 	privateKey, err := crypto.HexToECDSA(config.AccountPrivateKey)
 	if err != nil {
 		log.Errorf("Crypto hex to ecdsa error, %v", err.Error())
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
 		log.Error("Error casting public key to ECDSA")
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
 	if client == nil {
 		log.Error("Get ethereum rpc client error, client is nil")
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
 		log.Errorf("Get nonce error, %v", err.Error())
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
 		log.Error("Get ethereum rpc client error, client is nil")
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	signer, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(chainID))
 	if err != nil {
 		log.Errorf("Create signer error, %v", err.Error())
-		time.Sleep(time.Second * 1)
 		return createSigner(value)
 	}
 	signer.Nonce = big.NewInt(int64(nonce))
